@@ -6,46 +6,46 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Paging {
-	private int currentPage;	// ÇöÀç ÆäÀÌÁö
-	private int totalCount; 	// ±ÛÀÇ ÀüÃ¼ °¹¼ö
-	private int pageSize; 		// ÇÑ°³ÆäÀÌÁö¿¡ º¸¿©ÁÙ ±Û °¹¼ö
+	private int currentPage;	// í˜„ì¬ í˜ì´ì§€
+	private int totalCount; 	// ê¸€ì˜ ì „ì²´ ê°¯ìˆ˜
+	private int pageSize; 		// í•œê°œí˜ì´ì§€ì— ë³´ì—¬ì¤„ ê¸€ ê°¯ìˆ˜
 
-	private int totalPage; 		// ÀüÃ¼ ÆäÀÌÁö °¹¼ö
+	private int totalPage; 		// ì „ì²´ í˜ì´ì§€ ê°¯ìˆ˜
 
-	private int startNo; 		// È­¸é¿¡ º¸ÀÎ´Â ±Û¸ñ·ÏÀÇ ½ÃÀÛ rownum
-	private int endNo; 			// È­¸é¿¡ º¸ÀÎ´Â ±Û¸ñ·ÏÀÇ ¸¶Áö¸· rownum
+	private int startNo; 		// í™”ë©´ì— ë³´ì¸ëŠ” ê¸€ëª©ë¡ì˜ ì‹œì‘ rownum
+	private int endNo; 			// í™”ë©´ì— ë³´ì¸ëŠ” ê¸€ëª©ë¡ì˜ ë§ˆì§€ë§‰ rownum
 
-	private int startPage; 		// È­¸é¿¡ º¸ÀÌ´Â ÆäÀÌÁö¸ñ·ÏÀÇ ½ÃÀÛÆäÀÌÁö
-	private int endPage; 		// È­¸é¿¡ º¸ÀÌ´Â ÆäÀÌÁö¸ñ·ÏÀÇ ¸¶Áö¸·ÆäÀÌÁö .
+	private int startPage; 		// í™”ë©´ì— ë³´ì´ëŠ” í˜ì´ì§€ëª©ë¡ì˜ ì‹œì‘í˜ì´ì§€
+	private int endPage; 		// í™”ë©´ì— ë³´ì´ëŠ” í˜ì´ì§€ëª©ë¡ì˜ ë§ˆì§€ë§‰í˜ì´ì§€ .
 
-	// »ı¼ºÀÚ¿¡¼­ 3°¡Áö °ªÀ» ¹Ş¾Æ ³ª¸ÓÁö ÇÊµå°ªÀ» °è»êÇÕ´Ï´Ù.
-	public Paging(int currentPage, int totalCount, int pageSize) { // ¿ÜºÎ(ºñÁö´Ï½º·ÎÁ÷)¿¡¼­ °áÁ¤ÇÏ°í Àü´ŞµÇ´Â°ª.
+	// ìƒì„±ìì—ì„œ 3ê°€ì§€ ê°’ì„ ë°›ì•„ ë‚˜ë¨¸ì§€ í•„ë“œê°’ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
+	public Paging(int currentPage, int totalCount, int pageSize) { // ì™¸ë¶€(ë¹„ì§€ë‹ˆìŠ¤ë¡œì§)ì—ì„œ ê²°ì •í•˜ê³  ì „ë‹¬ë˜ëŠ”ê°’.
 		this.totalCount = totalCount;
 		this.pageSize = pageSize;
 
-		// ¿¹½Ã
-		// totalCount = 367°³ÀÌ´Ù. ±×·¯¸é, pageSize=20 ÀÏ ‹š totalPage =19 , pageSize=10 ÀÏ ‹š
+		// ì˜ˆì‹œ
+		// totalCount = 367ê°œì´ë‹¤. ê·¸ëŸ¬ë©´, pageSize=20 ì¼ Â‹Âš totalPage =19 , pageSize=10 ì¼ Â‹Âš
 		// totalPage =37
-		// totalCount = 7°³ÀÌ´Ù. ±×·¯¸é, pageSize=20 ÀÏ ‹š totalPage =1 , pageSize=10 ÀÏ ‹š
+		// totalCount = 7ê°œì´ë‹¤. ê·¸ëŸ¬ë©´, pageSize=20 ì¼ Â‹Âš totalPage =1 , pageSize=10 ì¼ Â‹Âš
 		// totalPage =1
-		// totalCount = 200°³ÀÌ´Ù. ±×·¯¸é, pageSize=20 ÀÏ ‹š totalPage =10 , pageSize=10 ÀÏ ‹š
+		// totalCount = 200ê°œì´ë‹¤. ê·¸ëŸ¬ë©´, pageSize=20 ì¼ Â‹Âš totalPage =10 , pageSize=10 ì¼ Â‹Âš
 		// totalPage =20
-		totalPage = (int) Math.ceil((double) totalCount / pageSize); // ceil Àº ¿Ã¸²ÀÔ´Ï´Ù.
-		// ÇöÀçÆäÀÌÁö ¹üÀ§(1~totalPage) ÀÇ À¯È¿¼ºÀ» Ã¼Å©
+		totalPage = (int) Math.ceil((double) totalCount / pageSize); // ceil ì€ ì˜¬ë¦¼ì…ë‹ˆë‹¤.
+		// í˜„ì¬í˜ì´ì§€ ë²”ìœ„(1~totalPage) ì˜ ìœ íš¨ì„±ì„ ì²´í¬
 		this.currentPage = (currentPage > totalPage) ? totalPage : currentPage;
 		this.currentPage = (currentPage < 1) ? 1 : this.currentPage;
 
-		// ÀÌ ºÎºĞÀÌ Á¦ÀÏ º¹ÀâÇÕ´Ï´Ù. ÇöÀç ÆäÀÌÁö currentPage ¸¦ 1,2,3,4,5 ... µîµîÀ¸·Î ´ëÀÔÇØ¼­ °è»êÇØº¸¼¼¿ä.
-		startNo = (this.currentPage - 1) * pageSize + 1;		// ±Û ¸ñ·Ï ½ÃÀÛÇà¹øÈ£(rownum)
+		// ì´ ë¶€ë¶„ì´ ì œì¼ ë³µì¡í•©ë‹ˆë‹¤. í˜„ì¬ í˜ì´ì§€ currentPage ë¥¼ 1,2,3,4,5 ... ë“±ë“±ìœ¼ë¡œ ëŒ€ì…í•´ì„œ ê³„ì‚°í•´ë³´ì„¸ìš”.
+		startNo = (this.currentPage - 1) * pageSize + 1;		// ê¸€ ëª©ë¡ ì‹œì‘í–‰ë²ˆí˜¸(rownum)
 		endNo = startNo + (pageSize - 1);
 
-		// ¾Æ·¡ ¿¹½Ã°ªÀ» ´ëÀÔÇØ º¸¼¼¿ä.
-		startPage = (this.currentPage - 1) / 5 * 5 + 1; // ÆäÀÌÁö¹øÈ£ ¸®½ºÆ® 10°³¾¿
-		// ÇöÀç ÆäÀÌÁö°¡ 57 (51~60) , startPage =51
-		// ÇöÀç ÆäÀÌÁö°¡ 7 (1~10) , startPage =1
-		// ÇöÀç ÆäÀÌÁö°¡ 156 (151~160) , startPage =151
-		// ÇöÀç ÆäÀÌÁö°¡ 160 (151~160) , startPage =151
+		// ì•„ë˜ ì˜ˆì‹œê°’ì„ ëŒ€ì…í•´ ë³´ì„¸ìš”.
+		startPage = (this.currentPage - 1) / 5 * 5 + 1; // í˜ì´ì§€ë²ˆí˜¸ ë¦¬ìŠ¤íŠ¸ 10ê°œì”©
+		// í˜„ì¬ í˜ì´ì§€ê°€ 57 (51~60) , startPage =51
+		// í˜„ì¬ í˜ì´ì§€ê°€ 7 (1~10) , startPage =1
+		// í˜„ì¬ í˜ì´ì§€ê°€ 156 (151~160) , startPage =151
+		// í˜„ì¬ í˜ì´ì§€ê°€ 160 (151~160) , startPage =151
 		endPage = startPage + 4;
-		endPage = endPage > totalPage ? totalPage : endPage; // totalPage º¸´Ù Å«°ª¿¡ ´ëÇÑ Á¦ÇÑ.
+		endPage = endPage > totalPage ? totalPage : endPage; // totalPage ë³´ë‹¤ í°ê°’ì— ëŒ€í•œ ì œí•œ.
 	}
 }

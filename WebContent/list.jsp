@@ -1,65 +1,107 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¿ì¸® ºÏÄ«Æä</title>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/booklist.css?v=3">
-<!-- Àı´ë°æ·Î -->
-
-<!-- »ó´ë°æ·Î´Â ../css/community.css ÀÔ´Ï´Ù. request°´Ã¼ÀÇ contextPath¸¦ el·Î Á¢±ÙÇÒ ¶§¿¡´Â ÇöÀç jsp °´Ã¼ pageContext ¸¦ »ç¿ëÇØ¾ß ÇÕ´Ï´Ù. -->
-
+<meta charset="UTF-8">
+<title>ìˆ™ì†Œë¦¬ìŠ¤íŠ¸</title>
+<style type="text/css">
+	div.gallery{
+		width:320px;
+		height: 250px;
+		padding-left: 8%;
+		align-items: left;
+	}
+	div.user-image a{
+		width:310px;
+		height: 230px;
+		display: flex;
+		background-size:320px; 250px;
+		align-items: left;
+	}
+	div.user-image img{
+		width:310px;
+		height: 230px;
+		background-size: 310px, 230px;
+		display: flex;
+		border-radius: 15%;
+		text-align: center;
+		position: relative;
+	}
+	div.user-text nth:nth-child(1) {
+		position: absolute;
+		color:white;
+		transform : translate(-50%, -50%);
+	}
+	
+</style>
 </head>
-
-<body>
+<body> 
 
 	<main id="list">
-		<h3>»õ·Î³ª¿Â Ã¥</h3>
-		<p>ÀÌ ´ŞÀÇ »õ·Î ³ª¿Â Ã¥À» ¼Ò°³ÇÕ´Ï´Ù.</p>
-		<hr style="color: white;">
-		<div style="width: 900px; margin: auto; overflow: hidden; border: 1px solid gray;">
-			<c:forEach var="vo" items="${ProductVo }">
-				<div class="gallery">
-					<div>
-						<a href=""> <img src="/°æ·ÎÅ×½ºÆ®¿ë/${photo }"
-							alt="${vo.title }"> <!-- ÀÌ¹ÌÁö°¡ ÀúÀåµÈ ¼­¹öÀÇ ÆÄÀÏ½Ã½ºÅÛ °æ·Î´Â url /upload ·Î ¼³Á¤À» ÇØ¾ßÇÕ´Ï´Ù.
-					 server.xml ¿¡¼­ ÇÏ·¯ °©´Ï´Ù.
-			<Context docBase="d:\iclass1020\upload" path="/upload" reloadable="true"/>
-			</Host>¹Ù·ÎÀ§¿¡ ÀÛ¼ºÇÏ±â 
-				 -->
-						</a>
-					</div>
-					<p>${vo.title }</p>
+		<c:forEach var="vo" items="${lists }">
+			<div class="gallery">
+				<div class="user-image">
+					<a href=""><img src="/upload/${vo.photofile[0]}" alt=""></a>
+					<div class="user-text"><span>${vo.pname }</span></div>
 				</div>
+			</div>
+		</c:forEach>
+		<div
+			style="width: 700px; margin: auto; padding: 10px; text-align: center;">
+			ì „ì²´ ê¸€ ê°œìˆ˜ :
+			<c:out value="${paging.totalCount }" />
+			<br>
+			<hr>
+			<a class="pagenum" href="?page=1">&lt;&lt;</a>
+			<!--(1) ì²«ë²ˆì§¸ í˜ì´ì§€ 1ë²ˆìœ¼ë¡œ ì´ë™ -->
+			<!--(2) ì´ ë¶€ë¶„ì´ ì œì¼ ë³µì¡í•©ë‹ˆë‹¤. ì‹¤í–‰í•˜ë©´ì„œ íŒŒì•…í•´ë³´ì„¸ìš”. -->
+			<!-- ìš”ì²­ì€ ListControllerê°€ ë°›ìŒ. pageíŒŒë¼ë¯¸í„° ë³€ê²½ë¨ -->
+			<a class="pagenum" href="?page=${paging.startPage-1 }"
+				style='<c:if test="${paging.startPage==1 }">display:none;</c:if>'>&lt;</a>
+			<!--(3) í˜ì´ì§€ ë²”ìœ„ startPage ë¶€í„° endPage ê¹Œì§€ ë°˜ë³µ -->
+			<c:forEach var="i" begin="${paging.startPage }"
+				end="${paging.endPage }">
+				<a class="pagenum ieach" href="?page=${i }"><c:out value="${i }" /></a>
 			</c:forEach>
-		</div>
-		<div style="float: right; margin: 40px; padding-right: 100px;">
-			<a href="new" class="button">¾²±â</a> <a
-				href="${pageContext.request.contextPath}" class="button">È¨</a>
+			<!--(4) ì´ ë¶€ë¶„ì´ ì œì¼ ë³µì¡í•©ë‹ˆë‹¤. ì‹¤í–‰í•˜ë©´ì„œ íŒŒì•…í•´ë³´ì„¸ìš”. -->
+			<a class="pagenum" href="?page=${paging.endPage+1 }"
+				style='<c:if test="${paging.endPage==paging.totalPage }">display:none;</c:if>'>&gt;</a>
+			<a class="pagenum" href="?page=${paging.totalPage }">&gt;&gt;</a>
+			<!--(5) ê°€ì¥ ë§ˆì§€ë§‰ í˜ì´ì§€ë¡œ ì´ë™ -->
 		</div>
 	</main>
+	<script type="text/javascript">
+		const pnums = document.querySelectorAll('.ieach');
+		pnums.forEach(function(item) {
+			console.log(item);
+			/* item ë²ˆí˜¸ê°€ í˜„ì¬ í˜ì´ì§€ ì´ë©´ ê¸€ê¼´ ìŠ¤íƒ€ì¼ì„ ë‹¤ë¥´ê²Œí•¨. */
+			if (item.innerHTML == '${paging.currentPage}') {
+				item.style.color = 'black';
+				item.style.fontWeight = 'bold';
+			} else {
+				item.style.color = '#37966f';
+			}
+		});
+	</script>
 </body>
 </html>
-<!-- À§ÁöÀ¨ textarea ¶óÀÌºê·¯¸® Âü°í : https://shxrecord.tistory.com/122 -->
+<!-- ìœ„ì§€ìœ… textarea ë¼ì´ë¸ŒëŸ¬ë¦¬ ì°¸ê³  : https://shxrecord.tistory.com/122 -->
 <!-- 
 			StringBuffer sb = new StringBuffer();
-			//ÆÄÀÏ ¾÷·Îµå¸¦ ¿©·¯°³ ÇÒ¶§´Â ¾Æ·¡¿Í °°ÀÌÇÕ´Ï´Ù.
+			//íŒŒì¼ ì—…ë¡œë“œë¥¼ ì—¬ëŸ¬ê°œ í• ë•ŒëŠ” ì•„ë˜ì™€ ê°™ì´í•©ë‹ˆë‹¤.
 			@SuppressWarnings("unchecked")
-			Enumeration<String> files = multi_request.getFileNames();	//file Å¸ÀÔ ÆÄÀÏ¸í ¸ğµÎ °¡Á®¿À±â
+			Enumeration<String> files = multi_request.getFileNames();	//file íƒ€ì… íŒŒì¼ëª… ëª¨ë‘ ê°€ì ¸ì˜¤ê¸°
 			while(files.hasMoreElements()) {
 				String f = files.nextElement();			
-				String name= multi_request.getFilesystemName(f);		//¾÷·ÎµåµÈ ÆÄÀÏ¸í °¡Á®¿À±â
-				sb.append(name).append(",");		//ÆÄÀÏ¸í ¿©·¯°³¸¦ , À¸·Î ±¸ºĞÇØ¼­ ÇÑ ÄÃ·³¿¡ ÀúÀå
+				String name= multi_request.getFilesystemName(f);		//ì—…ë¡œë“œëœ íŒŒì¼ëª… ê°€ì ¸ì˜¤ê¸°
+				sb.append(name).append(",");		//íŒŒì¼ëª… ì—¬ëŸ¬ê°œë¥¼ , ìœ¼ë¡œ êµ¬ë¶„í•´ì„œ í•œ ì»¬ëŸ¼ì— ì €ì¥
 			}
-			//¿©±â±îÁö ¾÷·Îµå ÆÄÀÏ°³¼ö ¸¸Å­ ¹İº¹½ÇÇà
+			//ì—¬ê¸°ê¹Œì§€ ì—…ë¡œë“œ íŒŒì¼ê°œìˆ˜ ë§Œí¼ ë°˜ë³µì‹¤í–‰
 			String title= multi_request.getParameter("title"); 
 			vo = new NewBooks(0, title, summary, null, sb.toString(), "admin");
-			adao.insert(vo);    //¾÷·ÎµåÇÑ ÆÄÀÏÀ» Å×ÀÌºí ÄÃ·³ °ªÀ¸·Î ÀúÀå.
-*Âü°í : db ¿¡¼­ °¡Á®¿ÔÀ» ¶§´Â , ±âÈ£·Î ºĞ¸®ÇØ¼­ List ¶Ç´Â ¹è¿­·Î º¯È¯ÇÏ¿© »ç¿ë
+			adao.insert(vo);    //ì—…ë¡œë“œí•œ íŒŒì¼ì„ í…Œì´ë¸” ì»¬ëŸ¼ ê°’ìœ¼ë¡œ ì €ì¥.
+*ì°¸ê³  : db ì—ì„œ ê°€ì ¸ì™”ì„ ë•ŒëŠ” , ê¸°í˜¸ë¡œ ë¶„ë¦¬í•´ì„œ List ë˜ëŠ” ë°°ì—´ë¡œ ë³€í™˜í•˜ì—¬ ì‚¬ìš©
  -->
-

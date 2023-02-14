@@ -2,23 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="travel">
- 	<insert id="">
- 	
- 	</insert>
- 	<select id="ProductSelectAll" resultType="vo.ProductVo">
- 		select * from product
- 	</select>
- 	<select id="count" resultType="int" >
- 		SELECT count(*) FROM community
- 	</select>
- 	<select id="pagelist" resultType="vo.ProductVo" parameterType="java.util.Map">
- 		SELECT * FROM 
-			(SELECT rownum r ,f.* FROM
-					(SELECT * FROM product  ORDER BY pno ) f)
-		WHERE r BETWEEN #{start} AND #{end}
- 	</select>
- 	<update id="">
- 	
- 	</update>
- </mapper>
+<mapper namespace="product">
+
+	<select resultType="vo.ProductVo" id="selectAll">
+		select * from product
+	</select>
+
+	<select resultType="String" id="selectone">
+	select photofile from product
+		where pno=2 
+	</select>
+
+	<select resultType="int" id="count">
+		SELECT count(*) FROM product
+	</select>
+
+	<select resultType="vo.ProductVo" id="pagelist" parameterType="java.util.Map">
+		SELECT * FROM
+		(SELECT rownum r ,f.* FROM
+		(SELECT * FROM product ORDER BY pno ) f)
+		WHERE r BETWEEN #{start} AND #{end} 
+	</select>
+
+</mapper>

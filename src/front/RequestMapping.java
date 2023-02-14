@@ -9,7 +9,7 @@ public class RequestMapping {
 	public static Map<RequestKeyValue, Handle> mapping = new HashMap<>();
 	
 	public static void init() {
-		mapping.put(new RequestKeyValue("/list", "GET"), new ListController() );
+		mapping.put(new RequestKeyValue("/list","GET"), new ListController());
 	}
 	
 	public static Handle getHandler(RequestKeyValue key) {

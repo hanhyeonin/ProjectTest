@@ -1,55 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Å×½ºÆ®¿ë</title>
+<meta charset="UTF-8">
+<title>í…ŒìŠ¤íŠ¸ìš©</title>
 </head>
+<nav>
+	<ul>
+		<li><a href="./index.jsp">í™ˆ</a></li>
+		<li><a href="./list">ë¦¬ìŠ¤íŠ¸</a></li>
+		<li><a href="">ë‹¤ìŒ</a></li>
+	</ul>
+</nav>
 <body>
-<main id="list">
-<table>
-	<tbody>
-		<c:forEach var="vo" items="${list }">
-			<c:out value="${list.photofile }"/>
-		</c:forEach>
-	</tbody>
-</table>
-<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
-	ÀüÃ¼ ±Û °³¼ö : <c:out value="${paging.totalCount }"/> <br>
-	<hr>
-	<a class="pagenum" href="?page=1">&lt;&lt;</a>   <!--(1) Ã¹¹øÂ° ÆäÀÌÁö 1¹øÀ¸·Î ÀÌµ¿ -->
 
-	<!--(2) ÀÌ ºÎºĞÀÌ Á¦ÀÏ º¹ÀâÇÕ´Ï´Ù. ½ÇÇàÇÏ¸é¼­ ÆÄ¾ÇÇØº¸¼¼¿ä. -->	<!-- ¿äÃ»Àº ListController°¡ ¹ŞÀ½. pageÆÄ¶ó¹ÌÅÍ º¯°æµÊ -->
-	<a class="pagenum" href="?page=${paging.startPage-1 }"      
-			style='<c:if test="${paging.startPage==1 }">display:none;</c:if>' >&lt;</a>
 
-	<!--(3) ÆäÀÌÁö ¹üÀ§ startPage ºÎÅÍ endPage ±îÁö ¹İº¹ -->
-	<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
-		<a class="pagenum ieach" href="?page=${i }"><c:out value="${i }"/></a>
-	</c:forEach>
-
-	<!--(4) ÀÌ ºÎºĞÀÌ Á¦ÀÏ º¹ÀâÇÕ´Ï´Ù. ½ÇÇàÇÏ¸é¼­ ÆÄ¾ÇÇØº¸¼¼¿ä. -->
-	<a class="pagenum" href="?page=${paging.endPage+1 }"
-			style='<c:if test="${paging.endPage==paging.totalPage }">display:none;</c:if>'	>&gt;</a>
-
-	<a class="pagenum" href="?page=${paging.totalPage }">&gt;&gt;</a>  <!--(5) °¡Àå ¸¶Áö¸· ÆäÀÌÁö·Î ÀÌµ¿ -->
-</div>
-</main>
-<script type="text/javascript">
-	const pnums = document.querySelectorAll('.ieach');
-	pnums.forEach(function(item){
-		console.log(item);
-		/* item ¹øÈ£°¡ ÇöÀç ÆäÀÌÁö ÀÌ¸é ±Û²Ã ½ºÅ¸ÀÏÀ» ´Ù¸£°ÔÇÔ. */
-		if(item.innerHTML=='${paging.currentPage}') {    
-			item.style.color = 'black';
-			item.style.fontWeight = 'bold';
-		}else{
-			item.style.color = '#37966f';
-		}
-	});
-</script>
 </body>
 </html>

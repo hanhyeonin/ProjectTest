@@ -13,11 +13,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class ProductVo {
+public class ProductVo2 {
 	private int pno;
 	private String pname;
 	private int price;
-	private String photofile;
+	private String[] photofile;
 	private int roomcnt;
 	private String address;
 	private String subaddress;
